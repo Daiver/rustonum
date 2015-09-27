@@ -267,4 +267,19 @@ fn test_sum_matrix01()
     assert!((m.sum() - 6.0).abs() < 0.0001);
 }
 
+#[test]
+#[should_panic]
+fn test_trace01()
+{
+    let m = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0]);
+    let tr = m.trace();
+    assert!((tr - 5.0).abs() < 0.0001);
+}
 
+#[test]
+fn test_trace02()
+{
+    let m = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0]).reshape(2, 2);
+    let tr = m.trace();
+    assert!((tr - 5.0).abs() < 0.0001);
+}

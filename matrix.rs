@@ -73,6 +73,11 @@ impl MatrixXf {
         &self.values
     }
 
+    pub fn size(&self) -> usize
+    {
+        self.values.len()
+    }
+
     pub fn max(&self) -> f32
     {
         assert!(self.values.len() > 0);
@@ -106,6 +111,16 @@ impl MatrixXf {
     {
         assert!(self.values.len() > 0);
         self.values.iter().cloned().fold(0.0, f32::add)
+    }
+
+    pub fn trace(&self) -> f32
+    {
+        assert!(self.cols == self.rows);
+        let mut res = 0.0;
+        for i in (0..self.rows){
+            res += self[(i, i)];
+        }
+        res
     }
 }
 
