@@ -289,4 +289,25 @@ fn test_trace02()
     assert!((tr - 5.0).abs() < 0.0001);
 }
 
+#[test]
+fn test_abs01()
+{
+    let m = MatrixXf::from_vec(vec![1.0, -2.0, 3.0, -4.0]);
+    let m2 = m.abs();
+
+    assert!((m2[(0, 0)] - 1.0).abs() < 0.001);
+    assert!((m2[(1, 0)] - 2.0).abs() < 0.001);
+    assert!((m2[(2, 0)] - 3.0).abs() < 0.001);
+    assert!((m2[(3, 0)] - 4.0).abs() < 0.001);
+}
+
+#[test]
+fn test_diag01()
+{
+    let m = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0]).reshape(2, 2);
+    let m2 = m.diag();
+    let ans = MatrixXf::from_vec(vec![1.0, 4.0]);
+    assert!((m2 - ans).abs().sum() < 0.0001);
+}
+
 }

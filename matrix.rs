@@ -73,6 +73,11 @@ impl MatrixXf {
         &self.values
     }
 
+    pub fn is_square(&self) -> bool
+    {
+        self.cols == self.rows
+    }
+
     pub fn size(&self) -> usize
     {
         self.values.len()
@@ -113,12 +118,31 @@ impl MatrixXf {
         self.values.iter().cloned().fold(0.0, f32::add)
     }
 
+    pub fn abs(&self) -> MatrixXf
+    {
+        MatrixXf{
+            rows: self.rows, 
+            cols: self.cols, 
+            values: self.values.iter().cloned().map(f32::abs).collect::<Vec<_>>()
+        }
+    }
+
     pub fn trace(&self) -> f32
     {
-        assert!(self.cols == self.rows);
+        assert!(self.is_square());
         let mut res = 0.0;
         for i in (0..self.rows){
             res += self[(i, i)];
+        }
+        res
+    }
+
+    pub fn diag(&self) -> MatrixXf
+    {
+        assert!(self.is_square());
+        let mut res = MatrixXf::zeros(self.rows, 1);
+        for i in (0..self.rows){
+            res[(i, 0)] = self[(i, i)];
         }
         res
     }
