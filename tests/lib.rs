@@ -1,5 +1,10 @@
+extern crate rustonum;
+
+
 #[cfg(test)]
-use matrix::MatrixXf;
+mod matrix_tests{
+
+use rustonum::MatrixXf;
 
 #[test]
 fn test_ones01()
@@ -282,4 +287,6 @@ fn test_trace02()
     let m = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0]).reshape(2, 2);
     let tr = m.trace();
     assert!((tr - 5.0).abs() < 0.0001);
+}
+
 }
