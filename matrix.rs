@@ -1,3 +1,5 @@
+//#[macro_use]
+
 use std;
 use std::ops::{Index, IndexMut, Add, Sub, Mul};
 
@@ -372,5 +374,30 @@ fn sub_matrix_from_const(mat: &MatrixXf, _rhs: f32) -> MatrixXf
         values : mat.values.iter().cloned().map(|x| _rhs - x).collect::<Vec<_>>(), 
         rows : mat.rows, cols : mat.cols
     }
+}
+
+#[macro_export]
+macro_rules! mat {
+    [ $($( $x: expr ),*);* ] => {{
+        let mut tmp_vec = Vec::new();
+        let mut rows = 0;
+        let mut cols = 0;
+        let mut is_first_row_collected = false;
+        $(
+            let mut inner_cols = 0;
+            $(
+                tmp_vec.push($x);
+                inner_cols += 1;
+            )*
+            if is_first_row_collected {
+                assert!(inner_cols == cols);
+            } else {
+                is_first_row_collected = true;
+                cols = inner_cols;
+            }
+            rows += 1;
+        )*
+        MatrixXf::from_vec(tmp_vec).reshape(rows, cols)
+    }}
 }
 

@@ -1,4 +1,4 @@
-extern crate rustonum;
+#[macro_use] extern crate rustonum;
 
 
 #[cfg(test)]
@@ -308,6 +308,14 @@ fn test_diag01()
     let m2 = m.diag();
     let ans = MatrixXf::from_vec(vec![1.0, 4.0]);
     assert!((m2 - ans).abs().sum() < 0.0001);
+}
+
+#[test]
+fn test_mat_macro01()
+{
+    let mat = mat![1.0, 2.0, 3.0; 4.0, 5.0, 6.0];
+    let ans = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0]).reshape(2, 3);
+    assert!((mat - ans).abs().sum() < 0.00001);
 }
 
 }
