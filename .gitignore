@@ -6,5 +6,6 @@
 
 *.dump
 
+Cargo.lock
+
 target/*
-samples/target/*
