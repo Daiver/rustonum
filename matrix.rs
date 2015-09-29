@@ -13,6 +13,15 @@ pub struct MatrixXf
 
 impl MatrixXf {
 
+    pub fn construct(values: Vec<f32>, rows: usize, cols: usize) -> MatrixXf
+    {
+        MatrixXf{
+            values: values,
+            rows: rows,
+            cols: cols
+        }
+    }
+
     pub fn zeros(rows: usize, cols: usize) -> MatrixXf
     {
         let values = std::iter::repeat(0.0).take(rows * cols).collect::<Vec<_>>();
@@ -397,7 +406,7 @@ macro_rules! mat {
             }
             rows += 1;
         )*
-        MatrixXf::from_vec(tmp_vec).reshape(rows, cols)
+        MatrixXf::construct(tmp_vec, rows, cols)
     }}
 }
 
