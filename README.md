@@ -16,6 +16,6 @@ Examples
     let mat5 = mat2 * mat4.t(); //matrix multiplication
     
 
-Watch `tests/lib.rs` for more examples
+Watch `examples` and `tests` for more examples
 
 Pull requests are welcomed
