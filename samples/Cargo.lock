@@ -1,0 +1,11 @@
+[root]
+name = "samples"
+version = "0.1.0"
+dependencies = [
+ "rustonum 0.1.1",
+]
+
+[[package]]
+name = "rustonum"
+version = "0.1.1"
+

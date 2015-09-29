@@ -15,6 +15,7 @@ impl MatrixXf {
 
     pub fn construct(values: Vec<f32>, rows: usize, cols: usize) -> MatrixXf
     {
+        assert!(values.len() == rows * cols);
         MatrixXf{
             values: values,
             rows: rows,

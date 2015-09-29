@@ -1,0 +1,8 @@
+[package]
+name = "samples"
+version = "0.1.0"
+authors = ["daiver <ra22341@ya.ru>"]
+
+[dependencies.rustonum]
+path = "../../rustonum"
+
