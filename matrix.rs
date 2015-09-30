@@ -1,7 +1,7 @@
 //#[macro_use]
 
 use std;
-use std::ops::{Index, IndexMut, Add, Sub, Mul};
+use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
 
 #[derive(Debug, Clone)]
 pub struct MatrixXf
@@ -327,6 +327,38 @@ impl Mul<MatrixXf> for f32 {
 
     fn mul(self, _rhs: MatrixXf) -> MatrixXf {
         mult_matrix_by_const(&_rhs, self)
+    }
+}
+
+impl Div<f32> for MatrixXf {
+    type Output = MatrixXf;
+
+    fn div(self, _rhs: f32) -> MatrixXf {
+        mult_matrix_by_const(&self, 1.0 / _rhs)
+    }
+}
+
+impl Div<MatrixXf> for f32 {
+    type Output = MatrixXf;
+
+    fn div(self, _rhs: MatrixXf) -> MatrixXf {
+        mult_matrix_by_const(&_rhs, 1.0 / self)
+    }
+}
+
+impl<'a> Div<&'a MatrixXf> for f32 {
+    type Output = MatrixXf;
+
+    fn div(self, _rhs: &'a MatrixXf) -> MatrixXf {
+        mult_matrix_by_const(_rhs, 1.0 / self)
+    }
+}
+
+impl<'a> Div<f32> for &'a MatrixXf {
+    type Output = MatrixXf;
+
+    fn div(self, _rhs: f32) -> MatrixXf {
+        mult_matrix_by_const(self, 1.0 / _rhs)
     }
 }
 

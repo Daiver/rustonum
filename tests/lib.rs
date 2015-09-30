@@ -264,6 +264,13 @@ fn test_mult_matrix05()
     assert!((m3[(1, 0)] - 24.0).abs() < 0.001);
 }
 
+#[test]
+fn test_mat_consts_div01()
+{
+    let m1 = mat![2.0; 3.0];
+    let m2 = mat![1.0; 1.5];
+    assert!((m2 - m1/2.0).abs().sum() < 0.0001);
+}
 
 #[test]
 fn test_sum_matrix01()
