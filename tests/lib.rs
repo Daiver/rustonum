@@ -326,6 +326,16 @@ fn test_mat_macro01()
 }
 
 #[test]
+#[should_panic]
+fn test_mat_macro02()
+{
+    let mat = mat![1.0, 2.0, 3.0; 4.0, 5.0, 6.0, 7.0];
+    let ans = MatrixXf::from_vec(vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0]).reshape(2, 3);
+    assert!((mat - ans).abs().sum() < 0.00001);
+}
+
+
+#[test]
 fn test_mat_product01()
 {
     let mat = mat![1.0, 2.0; -1.0, 6.0];
