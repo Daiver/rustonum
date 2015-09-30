@@ -1,6 +1,7 @@
 //#[macro_use]
 
 use std;
+use std::fmt;
 use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
 
 #[derive(Debug, Clone)]
@@ -449,4 +450,26 @@ macro_rules! mat {
     }}
 }
 
+impl fmt::Display for MatrixXf {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        try!(write!(f, "["));
+        for i in (0..self.rows()) {
+            if i > 0 {
+                try!(write!(f, " "));
+            }
+            try!(write!(f, "["));
+            for j in (0..self.cols()) {
+                try!(write!(f, "{}", self[(i, j)]));
+                if j < self.cols() - 1 {
+                    try!(write!(f, ", "));
+                }
+            }
+            try!(write!(f, "]"));
+            if i < self.rows() - 1 {
+                try!(write!(f, "\n"));
+            }
+        }
+        write!(f, "]\n")
+    }
+}
 
