@@ -318,4 +318,11 @@ fn test_mat_macro01()
     assert!((mat - ans).abs().sum() < 0.00001);
 }
 
+#[test]
+fn test_mat_product01()
+{
+    let mat = mat![1.0, 2.0; -1.0, 6.0];
+    assert!((mat.product() + 12.0).abs() < 0.001);
+}
+
 }

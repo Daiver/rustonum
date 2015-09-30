@@ -130,6 +130,12 @@ impl MatrixXf {
         self.values.iter().cloned().fold(0.0, f32::add)
     }
 
+    pub fn product(&self) -> f32 
+    {
+        assert!(self.values.len() > 0);
+        self.values.iter().cloned().fold(1.0, f32::mul)
+    }
+
     pub fn abs(&self) -> MatrixXf
     {
         MatrixXf{
@@ -410,4 +416,5 @@ macro_rules! mat {
         MatrixXf::construct(tmp_vec, rows, cols)
     }}
 }
+
 
