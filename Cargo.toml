@@ -1,8 +1,8 @@
 [package]
 name = "rustonum"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["daiver <ra22341@ya.ru>"]
 
 [lib]
 name = "rustonum"
-path = "lib.rs"
+path = "src/lib.rs"

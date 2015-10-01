@@ -21,7 +21,7 @@ from `examples/common.rs`
         let mat3 = MatrixXf::ones(2, 3); //Create matrix 2 x 3 and fill it by ones
         let mat4 = &mat2 + &(3.0 * mat3); //component-wise summation and multiplication 
         let mat5 = mat2 * mat4.t(); //matrix multiplication
-        println!("{:?}", mat5);
+        println!("{}", mat5);
         let mat6 = mat![-30.0, 50.0; -77.0, -100.0]; //Fill matrix in matlab way
         let mat7 = mat6 + mat5 / 2.0;
         println!("{}", mat7.sum());

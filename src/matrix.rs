@@ -1,4 +1,3 @@
-//#[macro_use]
 
 use std;
 use std::fmt;
@@ -7,9 +6,9 @@ use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
 #[derive(Debug, Clone)]
 pub struct MatrixXf
 {
-    values       : Vec<f32>,
-    rows         : usize,
-    cols         : usize,
+    values : Vec<f32>,
+    rows   : usize,
+    cols   : usize,
 }
 
 #[macro_export]
