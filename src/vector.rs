@@ -1,20 +1,23 @@
-use super::{Numeric, Float, Zero};
-use std;
+//#[macro_use] extern crate num;
+
+//use super::{Numeric, Zero};
+//use std;
 //#[cfg(features = "unstable")]
 //use std::num::Zero;
-//use traits::Float;
+use num::traits::{Float, Num, FromPrimitive, NumCast};
 use std::ops::{Index, IndexMut, Add, Mul};
 //use std::ops::{Add, Sub, Mul, Div, Rem};
 
 
 pub trait Vector<N>: Sized 
-                   + Zero 
                    + Index<usize, Output = N> 
                    + IndexMut<usize, Output = N> 
-    where N: Numeric 
+                   
+    where N: Num
            + Add<Output = N> 
            + Mul<Output = N> 
            + Copy
+           + NumCast
 {
     fn count(&self) -> usize;
 
@@ -35,16 +38,24 @@ pub trait Vector<N>: Sized
     }
 
     fn length<M>(&self) -> M
-        where M: Float
+        where M: Float + FromPrimitive
     {
         (M::from(self.length_squared())).unwrap().sqrt()
     }
 }
 
-//#[cfg(features = "unstable")]
-pub struct Vector3<N: Numeric> 
+#[derive(Debug, Clone, Copy)]
+pub struct Vector3<N: Num + Copy + NumCast> 
 {
     values: [N; 3]
+}
+
+impl<N> Vector<N> for Vector3<N> 
+    where N:Num + Copy + NumCast {
+    fn count(&self) -> usize 
+    {
+        3
+    }
 }
 
 //#[cfg(features = "unstable")]

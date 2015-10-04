@@ -37,3 +37,7 @@ Inspiration
 https://github.com/SiegeLord/RustAlgebloat
 
 https://github.com/hawkw/lin
+
+Dependences
+------------
+Num
