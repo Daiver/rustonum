@@ -1,12 +1,10 @@
-
 #[macro_use] extern crate num;
 
 pub use matrix::MatrixXf;
 
 pub use vector::{Vector, GeometryVector, Vector3f};
 
-//#[macro_use]
-//pub mod numeric;
+pub use geometry_primitives::{Vector2f};
 
 #[macro_use]
 pub mod matrix;

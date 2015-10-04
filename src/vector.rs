@@ -86,7 +86,7 @@ impl<N> Vector3<N>
     pub fn y(&self) -> N {self[1]}
     pub fn z(&self) -> N {self[2]}
 
-    pub fn zero(&self) -> Self
+    pub fn zero() -> Self
     {
         Vector3{values: [N::zero(), N::zero(), N::zero()]}
     }
