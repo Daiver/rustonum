@@ -8,8 +8,7 @@ use std::ops::{Index, IndexMut, Add, Mul};
 
 //#[cfg(features = "unstable")]
 pub trait Vector<N>: Sized + Zero + Index<usize, Output = N> + IndexMut<usize, Output = N> 
-    where N: Numeric + Add<Output = N> + Mul<Output = N>
-          //<Self as Index<usize>>::Output: Numeric 
+    where N: Numeric + Add<Output = N> + Mul<Output = N> + Copy
 {
     fn count(&self) -> usize;
 
