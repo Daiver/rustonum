@@ -12,6 +12,5 @@ pub mod matrix;
 #[macro_use]
 pub mod vector;
 
-//not tested
 pub mod geometry_primitives;
 
