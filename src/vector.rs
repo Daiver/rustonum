@@ -58,6 +58,22 @@ impl<N> Vector<N> for Vector3<N>
     }
 }
 
+impl<N> Index<usize> for Vector3<N> where N: Num + Copy + NumCast {
+    type Output = N;
+    fn index<'a>(&'a self, _index: usize) -> &'a N 
+    {
+        assert!(_index < 3);
+        &self.values[_index]
+    }
+}
+
+impl<N> IndexMut<usize> for Vector3<N> where N: Num + Copy + NumCast {
+    fn index_mut<'a>(&'a mut self, _index: usize) -> &'a mut N {
+        assert!(_index < 3);
+        & mut self.values[_index]
+    }
+}
+
 //#[cfg(features = "unstable")]
 //impl<N> Zero for Vector3<N> where N: Numeric {
     //fn zero(&self) -> Vector3<N> 
