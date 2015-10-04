@@ -6,8 +6,12 @@ Use it at your own risk
 
 Examples
 --------
+
+Matrix operations example 
+
 from `examples/common.rs`
    
+```rust
     #[macro_use] extern crate rustonum;
 
     use rustonum::MatrixXf;
@@ -26,7 +30,36 @@ from `examples/common.rs`
         let mat7 = mat6 + mat5 / 2.0;
         println!("{}", mat7.sum());
     }
- 
+``` 
+
+Vector operations example
+
+from `examples/vector.rs`
+
+```rust
+    #[macro_use] extern crate rustonum;
+
+    use rustonum::vector::*;
+
+    fn main()
+    {
+        let v1 = Vector3f{values: [1.0, 2.0, 3.0]};
+        let v2 = Vector3f{values: [5.0, 6.0, 7.0]};
+        let v3 = v1.cross(v2);
+
+        println!("v3 = {:?}", v3);
+        println!("length of v3 = {}", v3.length());
+        println!("direction of v3 = {:?}", v3.normalized());
+        println!("restored v3 = {:?}", v3.normalized() * v3.length());
+
+        let v4 = Vector3f{values: [2.0, 3.0, 1.0]};
+        let v5 = Vector3f{values: [5.0, 7.0, 3.0]};
+        let v6 = Vector3f{values: [1.0, 1.0, 1.0]};
+        let v7 = 2.0 * (v4 + v6 * 0.5) - v5;
+        println!("v7 = {}", v7.sum());
+    }
+
+```
 
 Watch `examples` and `tests` for more examples
 
