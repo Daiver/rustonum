@@ -2,7 +2,8 @@
 #[macro_use] extern crate num;
 
 pub use matrix::MatrixXf;
-//pub use numeric::{Zero, Numeric, Float};
+
+pub use vector::Vector3f;
 
 #[macro_use]
 pub mod numeric;

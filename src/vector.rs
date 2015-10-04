@@ -1,15 +1,9 @@
-//#[macro_use] extern crate num;
-
-//use super::{Numeric, Zero};
-//use std;
-//#[cfg(features = "unstable")]
-//use std::num::Zero;
 use num::traits::{Float, Num, FromPrimitive, NumCast};
 use std::ops::{Index, IndexMut, Add, Mul};
-//use std::ops::{Add, Sub, Mul, Div, Rem};
 
 
-pub trait Vector<N>: Sized 
+pub trait Vector<N>: Sized
+                   + Clone
                    + Index<usize, Output = N> 
                    + IndexMut<usize, Output = N> 
                    
@@ -19,9 +13,9 @@ pub trait Vector<N>: Sized
            + Copy
            + NumCast
 {
+    //fn zero()
     fn count(&self) -> usize;
 
-    //#[cfg(features = "unstable")]
     fn dot(&self, _rhs: & Self) -> N
     {
         assert!(self.count() == _rhs.count());
@@ -42,21 +36,32 @@ pub trait Vector<N>: Sized
     {
         (M::from(self.length_squared())).unwrap().sqrt()
     }
+
+}
+
+pub trait GeometryVector<N> : Vector<N>
+    where N: Num
+           + Add<Output = N> 
+           + Mul<Output = N> 
+           + Copy
+           + NumCast
+{
+
 }
 
 #[derive(Debug, Clone, Copy)]
 pub struct Vector3<N: Num + Copy + NumCast> 
 {
-    values: [N; 3]
+    pub values: [N; 3]
 }
 
 impl<N> Vector<N> for Vector3<N> 
     where N:Num + Copy + NumCast {
-    fn count(&self) -> usize 
-    {
-        3
-    }
+    fn count(&self) -> usize {3}
 }
+
+impl<N> GeometryVector<N> for Vector3<N> 
+    where N:Num + Copy + NumCast {}
 
 impl<N> Index<usize> for Vector3<N> where N: Num + Copy + NumCast {
     type Output = N;
@@ -74,23 +79,5 @@ impl<N> IndexMut<usize> for Vector3<N> where N: Num + Copy + NumCast {
     }
 }
 
-//#[cfg(features = "unstable")]
-//impl<N> Zero for Vector3<N> where N: Numeric {
-    //fn zero(&self) -> Vector3<N> 
-    //{
-        //Vector3{values: [N::zero(), N::zero(), N::zero()]}
-    //}
-//}
-
-//impl<N> Add<Vector<N>> for Vector<N> 
-//where N: Numeric + Add<Output = N> {
-    //type Output = Vector<N>;
-
-    //#[cfg(features = "unstable")]
-    //fn add(self, _rhs: Vector<N>) -> Vector<N>
-    //{
-        //let res = Vector::zero();
-        //res
-    //}
-//}
-
+pub type Vector3f = Vector3<f32>;
+pub type Vector3d = Vector3<f64>;
