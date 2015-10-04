@@ -6,3 +6,6 @@ authors = ["daiver <ra22341@ya.ru>"]
 [lib]
 name = "rustonum"
 path = "src/lib.rs"
+
+#[dependencies]
+#num = "*"

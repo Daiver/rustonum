@@ -1,14 +1,20 @@
-use super::{Numeric, Zero};
-
+use super::{Numeric, Float, Zero};
+use std;
 //#[cfg(features = "unstable")]
 //use std::num::Zero;
+//use traits::Float;
 use std::ops::{Index, IndexMut, Add, Mul};
 //use std::ops::{Add, Sub, Mul, Div, Rem};
 
 
-//#[cfg(features = "unstable")]
-pub trait Vector<N>: Sized + Zero + Index<usize, Output = N> + IndexMut<usize, Output = N> 
-    where N: Numeric + Add<Output = N> + Mul<Output = N> + Copy
+pub trait Vector<N>: Sized 
+                   + Zero 
+                   + Index<usize, Output = N> 
+                   + IndexMut<usize, Output = N> 
+    where N: Numeric 
+           + Add<Output = N> 
+           + Mul<Output = N> 
+           + Copy
 {
     fn count(&self) -> usize;
 
@@ -23,25 +29,16 @@ pub trait Vector<N>: Sized + Zero + Index<usize, Output = N> + IndexMut<usize, O
         res
     }
 
-    //#[cfg(features = "unstable")]
-    fn lengthSquared(&self) -> N 
+    fn length_squared(&self) -> N 
     {
         self.dot(self)
     }
 
-    //#[cfg(features = "unstable")]
-    //fn length(&self) -> N 
-    //{
-        //self.lengthSquared().sqrt()
-    //}
-
-//    #[cfg(features = "unstable")]
-    //fn is_perpendicular_to<M>(self, v_prime: Self) -> bool
-    //where Self: Mul<Self, Output=M>
-        //, M: PartialEq
-    //{
-        //(self * v_prime) == M::zero()
-    //}
+    fn length<M>(&self) -> M
+        where M: Float
+    {
+        (M::from(self.length_squared())).unwrap().sqrt()
+    }
 }
 
 //#[cfg(features = "unstable")]

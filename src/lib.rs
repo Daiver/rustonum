@@ -1,9 +1,8 @@
-//#![crate_name = "rustonum"]
-//#![crate_type = "lib"]
-//#![cfg_attr(features = "unstable", feature(zero_one))]
+
+//extern crate num;
 
 pub use matrix::MatrixXf;
-pub use numeric::{Zero, Numeric};
+pub use numeric::{Zero, Numeric, Float};
 
 #[macro_use]
 pub mod numeric;
