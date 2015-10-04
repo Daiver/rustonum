@@ -3,10 +3,10 @@
 
 pub use matrix::MatrixXf;
 
-pub use vector::Vector3f;
+pub use vector::{Vector, GeometryVector, Vector3f};
 
-#[macro_use]
-pub mod numeric;
+//#[macro_use]
+//pub mod numeric;
 
 #[macro_use]
 pub mod matrix;

@@ -1,5 +1,5 @@
-use num::traits::{Float, Num, FromPrimitive, NumCast};
-use std::ops::{Index, IndexMut, Add, Mul};
+use num::traits::{Float, Num, NumCast};
+use std::ops::{Index, IndexMut, Add, Mul, Div};
 
 
 pub trait Vector<N>: Sized
@@ -31,39 +31,71 @@ pub trait Vector<N>: Sized
         self.dot(self)
     }
 
-    fn length<M>(&self) -> M
-        where M: Float + FromPrimitive
-    {
-        (M::from(self.length_squared())).unwrap().sqrt()
-    }
-
 }
 
 pub trait GeometryVector<N> : Vector<N>
+                            + Index<usize, Output = N> 
+                            + IndexMut<usize, Output = N> 
     where N: Num
            + Add<Output = N> 
            + Mul<Output = N> 
+           + Div<Output = N> 
            + Copy
-           + NumCast
-{
+           + NumCast 
+           + Float
+{ 
+    fn length(&self) -> N
+    {
+        self.length_squared().sqrt()
+    }
 
+    fn normalize(& mut self)
+    {
+        let len = self.length();
+        for i in (0..self.count()) {
+            self[i] = self[i] / len;
+        }
+    }
+
+    fn normalized(&self) -> Self
+    {
+        let mut res = self.clone();
+        res.normalize();
+        res
+    }
 }
 
 #[derive(Debug, Clone, Copy)]
-pub struct Vector3<N: Num + Copy + NumCast> 
+pub struct Vector3<N: Float + Copy + NumCast> 
 {
     pub values: [N; 3]
 }
 
+impl<N> Vector3<N>
+    where N: Float + Copy + NumCast {
+    pub fn x(&self) -> N {self[0]}
+    pub fn y(&self) -> N {self[1]}
+    pub fn z(&self) -> N {self[2]}
+
+    pub fn cross(&self, other: Self) -> Self
+    {
+        Vector3{values:[
+            self.y() * other.z() - self.z() * other.y(),
+          -(self.x() * other.z() - self.z() * other.x()),
+            self.x() * other.y() - self.y() * other.x()
+        ]}
+    }
+}
+
 impl<N> Vector<N> for Vector3<N> 
-    where N:Num + Copy + NumCast {
+    where N: Float + Copy + NumCast {
     fn count(&self) -> usize {3}
 }
 
 impl<N> GeometryVector<N> for Vector3<N> 
-    where N:Num + Copy + NumCast {}
+    where N: Float + Copy + NumCast {}
 
-impl<N> Index<usize> for Vector3<N> where N: Num + Copy + NumCast {
+impl<N> Index<usize> for Vector3<N> where N: Float + Copy + NumCast {
     type Output = N;
     fn index<'a>(&'a self, _index: usize) -> &'a N 
     {
@@ -72,7 +104,7 @@ impl<N> Index<usize> for Vector3<N> where N: Num + Copy + NumCast {
     }
 }
 
-impl<N> IndexMut<usize> for Vector3<N> where N: Num + Copy + NumCast {
+impl<N> IndexMut<usize> for Vector3<N> where N: Float + Copy + NumCast {
     fn index_mut<'a>(&'a mut self, _index: usize) -> &'a mut N {
         assert!(_index < 3);
         & mut self.values[_index]
