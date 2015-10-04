@@ -40,4 +40,5 @@ https://github.com/hawkw/lin
 
 Dependences
 ------------
-Num
+Some numerical traits 
+https://github.com/rust-lang-deprecated/num
