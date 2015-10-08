@@ -140,26 +140,75 @@ impl<N> IndexMut<usize> for Vector3<N> where N: Float + Copy + NumCast {
 pub type Vector3f = Vector3<f32>;
 pub type Vector3d = Vector3<f64>;
 
-/*macro_rules! impl_v3_ops {
+/*
+macro_rules! impl_v3_ops {
     ($($name:ident, $fun:ident, $op:tt)*) => {$(
         // implement the operation for vector & vector
         impl<N> $name for Vector3<N>{
             
         }
 */
-//FIXME should be rewrited by macros
-impl<N> Add<Vector3<N>> for Vector3<N> 
-    where N: Float + Copy + NumCast + Add<Output = N> {
-    type Output = Self;
+macro_rules! impl_v3_ops {
+    ($($name:ident, $fun:ident)*) => {$(
 
-    fn add(self, _rhs: Self) -> Self {
-        Vector3 {values: [
-            self.x() + _rhs.x(),
-            self.y() + _rhs.y(),
-            self.z() + _rhs.z(),
-            ]}
+    impl<N> $name<Vector3<N>> for Vector3<N> 
+        where N: Float + Copy + $name<Output = N> {
+        type Output = Self;
+
+        fn $fun(self, _rhs: Self) -> Self {
+            let mut res = self.clone();
+            for i in (0 .. self.count()) {
+                res[i] = res[i].$fun(_rhs[i]);
+            }
+            res
+        }//stringify
     }
+
+    impl<N> $name<N> for Vector3<N> 
+        where N: Float + Copy + $name<Output = N> {
+        type Output = Self;
+
+        fn $fun(self, _rhs: N) -> Self {
+            let mut res = self.clone();
+            for i in (0 .. self.count()) {
+                res[i] = res[i].$fun(_rhs);
+            }
+            res
+        }//stringify
+    }
+
+//    impl<N> $name<Vector3<N>> for N 
+        //where N: Float + Copy + $name<Output = N> {
+        //type Output = Vector3<N>;
+
+        //fn $fun(self, _rhs: Vector3<N>) -> Vector3<N> {
+            //let mut res = _rhs.clone();
+            //for i in (0 .. self.count()) {
+                //res[i] = res.$fun(_rhs[i]);
+            //}
+            //res
+        //}//stringify
+    //}
+)*}}
+
+impl_v3_ops!{
+    Add, add
+    Mul, mul
 }
+
+//FIXME should be rewrited by macros
+//impl<N> Add<Vector3<N>> for Vector3<N> 
+    //where N: Float + Copy + Add<Output = N> {
+    //type Output = Self;
+
+    //fn add(self, _rhs: Self) -> Self {
+        //let mut res = self.clone();
+        //for i in (0 .. self.count()) {
+            //res[i] = res[i] + _rhs[i];
+        //}
+        //res
+    //}
+//}
 
 //impl Add for Vector3f {
     //type Output = Vector3f;
@@ -186,17 +235,17 @@ impl Sub for Vector3f {
     }
 }
 
-impl Mul<f32> for Vector3f {
-    type Output = Vector3f;
-    fn mul(self, factor: f32) -> Vector3f
-    {
-        Vector3f {values: [
-            self.x() * factor,
-            self.y() * factor,
-            self.z() * factor
-        ]}
-    }
-}
+//impl Mul<f32> for Vector3f {
+    //type Output = Vector3f;
+    //fn mul(self, factor: f32) -> Vector3f
+    //{
+        //Vector3f {values: [
+            //self.x() * factor,
+            //self.y() * factor,
+            //self.z() * factor
+        //]}
+    //}
+//}
 
 impl Mul<Vector3f> for f32 {
     type Output = Vector3f;

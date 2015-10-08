@@ -73,5 +73,15 @@ fn test_vec3_ops02()
     assert!(v4.sum().abs() < 0.001);
 }
 
+//#[test]
+//fn test_vec3_ops02()
+//{
+    //let v1 = Vector3f{values: [2.0, 3.0, 1.0]};
+    //let v2 = Vector3f{values: [5.0, 7.0, 3.0]};
+    //let v3 = Vector3f{values: [1.0, 1.0, 1.0]};
+    //let v4 = 2.0 * (v1 + v3 * 0.5) - v2;
+    //assert!(v4.sum().abs() < 0.001);
+//}
+
 
 }

@@ -2,7 +2,7 @@
 
 pub use matrix::MatrixXf;
 
-pub use vector::{Vector, GeometryVector, Vector3f};
+pub use vector::{Vector, GeometryVector, Vector3, Vector3f};
 
 pub use geometry_primitives::{Vector2f};
 
