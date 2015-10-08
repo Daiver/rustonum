@@ -129,10 +129,10 @@ pub type Vector3f = Vector3<f32>;
 pub type Vector3d = Vector3<f64>;
 
 
-macro_rules! impl_v3_ops {
-    ($($name:ident, $fun:ident)*) => {$(
+macro_rules! impl_static_vector_ops {
+    ($($struct_name:ident, $name:ident, $fun:ident)*) => {$(
 
-    impl<N> $name<Vector3<N>> for Vector3<N> 
+    impl<N> $name<$struct_name<N>> for $struct_name<N> 
         where N: Float + Copy + $name<Output = N> {
         type Output = Self;
 
@@ -145,7 +145,7 @@ macro_rules! impl_v3_ops {
         }//stringify
     }
 
-    impl<N> $name<N> for Vector3<N> 
+    impl<N> $name<N> for $struct_name<N> 
         where N: Float + Copy + $name<Output = N> {
         type Output = Self;
 
@@ -157,26 +157,13 @@ macro_rules! impl_v3_ops {
             res
         }//stringify
     }
-
-//    impl<N> $name<Vector3<N>> for N 
-        //where N: Float + Copy + $name<Output = N> {
-        //type Output = Vector3<N>;
-
-        //fn $fun(self, _rhs: Vector3<N>) -> Vector3<N> {
-            //let mut res = _rhs.clone();
-            //for i in (0 .. self.count()) {
-                //res[i] = res.$fun(_rhs[i]);
-            //}
-            //res
-        //}//stringify
-    //}
 )*}}
 
-impl_v3_ops!{
-    Add, add
-    Mul, mul
-    Sub, sub
-    Div, div
+impl_static_vector_ops!{
+    Vector3, Add, add
+    Vector3, Mul, mul
+    Vector3, Sub, sub
+    Vector3, Div, div
 }
 
 
