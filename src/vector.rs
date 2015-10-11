@@ -125,8 +125,50 @@ impl<N> IndexMut<usize> for Vector3<N> where N: Float + Copy + NumCast {
     }
 }
 
-pub type Vector3f = Vector3<f32>;
-pub type Vector3d = Vector3<f64>;
+
+//Vector2 Should be rewrited by common type or macroses
+#[derive(Debug, Clone, Copy)]
+pub struct Vector2<N: Float + Copy + NumCast> 
+{
+    pub values: [N; 2]
+}
+
+impl<N> Vector2<N>
+    where N: Float + Copy + NumCast {
+    pub fn x(&self) -> N {self[0]}
+    pub fn y(&self) -> N {self[1]}
+
+    pub fn zero() -> Self
+    {
+        Vector2{values: [N::zero(), N::zero()]}
+    }
+
+}
+
+impl<N> Vector<N> for Vector2<N> 
+    where N: Float + Copy + NumCast {
+    fn count(&self) -> usize {2}
+}
+
+impl<N> GeometryVector<N> for Vector2<N> 
+    where N: Float + Copy + NumCast {}
+
+impl<N> Index<usize> for Vector2<N> where N: Float + Copy + NumCast {
+    type Output = N;
+    fn index<'a>(&'a self, _index: usize) -> &'a N 
+    {
+        assert!(_index < 2);
+        &self.values[_index]
+    }
+}
+
+impl<N> IndexMut<usize> for Vector2<N> where N: Float + Copy + NumCast {
+    fn index_mut<'a>(&'a mut self, _index: usize) -> &'a mut N {
+        assert!(_index < 2);
+        & mut self.values[_index]
+    }
+}
+
 
 
 macro_rules! impl_static_vector_operators {
@@ -155,7 +197,7 @@ macro_rules! impl_static_vector_operators {
                 res[i] = res[i].$fun(_rhs);
             }
             res
-        }//stringify
+        }
     }
 )*}}
 
@@ -185,6 +227,13 @@ impl_static_vector_operators!{
     Vector3, Div, div
 }
 
+impl_static_vector_operators!{
+    Vector2, Add, add
+    Vector2, Mul, mul
+    Vector2, Sub, sub
+    Vector2, Div, div
+}
+
 impl_static_vector_operators_for_scalars!{
     Vector3, f32, Add, add
     Vector3, f32, Sub, sub
@@ -198,4 +247,24 @@ impl_static_vector_operators_for_scalars!{
     Vector3, f64, Mul, mul
     Vector3, f64, Div, div
 }
+
+impl_static_vector_operators_for_scalars!{
+    Vector2, f32, Add, add
+    Vector2, f32, Sub, sub
+    Vector2, f32, Mul, mul
+    Vector2, f32, Div, div
+}
+
+impl_static_vector_operators_for_scalars!{
+    Vector2, f64, Add, add
+    Vector2, f64, Sub, sub
+    Vector2, f64, Mul, mul
+    Vector2, f64, Div, div
+}
+
+pub type Vector3f = Vector3<f32>;
+pub type Vector3d = Vector3<f64>;
+
+pub type Vector2f = Vector2<f32>;
+pub type Vector2d = Vector2<f64>;
 

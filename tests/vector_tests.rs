@@ -1,7 +1,7 @@
 #[macro_use] extern crate rustonum;
 
 #[cfg(test)]
-mod vector_tests{
+mod vector3_tests{
 
 use rustonum::vector::*;
 
@@ -73,15 +73,32 @@ fn test_vec3_ops02()
     assert!(v4.sum().abs() < 0.001);
 }
 
-//#[test]
-//fn test_vec3_ops02()
-//{
-    //let v1 = Vector3f{values: [2.0, 3.0, 1.0]};
-    //let v2 = Vector3f{values: [5.0, 7.0, 3.0]};
-    //let v3 = Vector3f{values: [1.0, 1.0, 1.0]};
-    //let v4 = 2.0 * (v1 + v3 * 0.5) - v2;
-    //assert!(v4.sum().abs() < 0.001);
-//}
+
+}
+
+#[cfg(test)]
+mod vector2_tests{
+
+use rustonum::vector::*;
+
+#[test]
+fn test_vec2_ind01()
+{
+    let v: Vector2f = Vector2f{values: [1.0, 2.0]};
+    
+    assert!((v[0] - 1.0).abs() < 0.0001);
+    assert!((v[1] - 2.0).abs() < 0.0001);
+}
+
+#[test]
+fn test_vec2_ops01()
+{
+    let v1 = Vector2f{values: [2.0, 3.0]};
+    let v2 = Vector2f{values: [5.0, 7.0]};
+    let v3 = Vector2f{values: [1.0, 1.0]};
+    let v4 = 2.0 * (v1 + v3 * 0.5) - v2;
+    assert!(v4.sum().abs() < 0.001);
+}
 
 
 }
