@@ -21,3 +21,31 @@ macro_rules! mat {
     }}
 }
 
+#[macro_export]
+macro_rules! vec2 {
+    [ $x: expr, $y: expr  ] => {{
+        Vector2{values: [$x, $y]}
+    }}
+}
+
+#[macro_export]
+macro_rules! vec3 {
+    [ $x: expr, $y: expr, $z: expr  ] => {{
+        Vector3{values: [$x, $y, $z]}
+    }}
+}
+
+#[macro_export]
+macro_rules! vec2f {
+    [ $x: expr, $y: expr  ] => {{
+        Vector2f{values: [$x, $y]}
+    }}
+}
+
+#[macro_export]
+macro_rules! vec3f {
+    [ $x: expr, $y: expr, $z: expr  ] => {{
+        Vector3f{values: [$x, $y, $z]}
+    }}
+}
+

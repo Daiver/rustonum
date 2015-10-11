@@ -18,6 +18,6 @@ fn main()
     let v6 = Vector3f{values: [1.0, 1.0, 1.0]};
     let v7 = 2.0 * (v4 + v6 * 0.5) - v5;
     println!("v7 = {}", v7.sum());
-    let v8 = 0.1 * v7.sum() * Vector2f {values: [0.5, 5.0]} * Vector2f{values: [-1.0, 2.0]};
+    let v8 = 0.1 * vec2![-1.0, 0.0] * vec2![1.0, 2.0];
     println!("v8 = {:?}", v8);
 }

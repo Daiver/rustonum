@@ -93,9 +93,9 @@ fn test_vec2_ind01()
 #[test]
 fn test_vec2_ops01()
 {
-    let v1 = Vector2f{values: [2.0, 3.0]};
-    let v2 = Vector2f{values: [5.0, 7.0]};
-    let v3 = Vector2f{values: [1.0, 1.0]};
+    let v1 = vec2f![2.0, 3.0];
+    let v2 = vec2f![5.0, 7.0];
+    let v3 = vec2f![1.0, 1.0];
     let v4 = 2.0 * (v1 + v3 * 0.5) - v2;
     assert!(v4.sum().abs() < 0.001);
 }
