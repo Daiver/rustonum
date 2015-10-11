@@ -4,6 +4,15 @@ Just for fun project for educational purposes
 
 Use it at your own risk
 
+Install
+--------
+Cargo.toml
+```
+[dependencies.rustonum]
+git = "https://github.com/daiver/rustonum"
+# or path = "path/to/rustonum"
+```
+
 Examples
 --------
 
