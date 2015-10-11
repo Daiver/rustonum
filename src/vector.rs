@@ -129,11 +129,11 @@ pub type Vector3f = Vector3<f32>;
 pub type Vector3d = Vector3<f64>;
 
 
-macro_rules! impl_static_vector_ops {
-    ($($struct_name:ident, $name:ident, $fun:ident)*) => {$(
+macro_rules! impl_static_vector_operators {
+    ($($struct_name:ident, $trait_name:ident, $fun:ident)*) => {$(
 
-    impl<N> $name<$struct_name<N>> for $struct_name<N> 
-        where N: Float + Copy + $name<Output = N> {
+    impl<N> $trait_name<$struct_name<N>> for $struct_name<N> 
+        where N: Float + Copy + $trait_name<Output = N> {
         type Output = Self;
 
         fn $fun(self, _rhs: Self) -> Self {
@@ -142,11 +142,11 @@ macro_rules! impl_static_vector_ops {
                 res[i] = res[i].$fun(_rhs[i]);
             }
             res
-        }//stringify
+        }
     }
 
-    impl<N> $name<N> for $struct_name<N> 
-        where N: Float + Copy + $name<Output = N> {
+    impl<N> $trait_name<N> for $struct_name<N> 
+        where N: Float + Copy + $trait_name<Output = N> {
         type Output = Self;
 
         fn $fun(self, _rhs: N) -> Self {
@@ -159,23 +159,43 @@ macro_rules! impl_static_vector_ops {
     }
 )*}}
 
-impl_static_vector_ops!{
+macro_rules! impl_static_vector_operators_for_scalars {
+    ($($struct_name:ident, $scalar_type_name:ident, $trait_name:ident, $fun:ident)*) => {$(
+
+    impl $trait_name<$struct_name<$scalar_type_name>> for $scalar_type_name {
+        type Output = $struct_name<$scalar_type_name>;
+        fn $fun(self: $scalar_type_name,
+                vec : $struct_name<$scalar_type_name>) -> $struct_name<$scalar_type_name>
+        {
+            let mut res = vec.clone();
+            for i in (0 .. vec.count()) {
+                res[i] = res[i].$fun(self);
+            }
+            res
+        }
+    }
+       
+
+)*}}
+
+impl_static_vector_operators!{
     Vector3, Add, add
     Vector3, Mul, mul
     Vector3, Sub, sub
     Vector3, Div, div
 }
 
+impl_static_vector_operators_for_scalars!{
+    Vector3, f32, Add, add
+    Vector3, f32, Sub, sub
+    Vector3, f32, Mul, mul
+    Vector3, f32, Div, div
+}
 
-impl Mul<Vector3f> for f32 {
-    type Output = Vector3f;
-    fn mul(self: f32, vec: Vector3f) -> Vector3f
-    {
-        Vector3f {values: [
-            vec.x() * self,
-            vec.y() * self,
-            vec.z() * self
-        ]}
-    }
+impl_static_vector_operators_for_scalars!{
+    Vector3, f64, Add, add
+    Vector3, f64, Sub, sub
+    Vector3, f64, Mul, mul
+    Vector3, f64, Div, div
 }
 
