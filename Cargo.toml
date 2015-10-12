@@ -1,6 +1,6 @@
 [package]
 name = "rustonum"
-version = "0.2.2"
+version = "0.2.3"
 authors = ["daiver <ra22341@ya.ru>"]
 
 [lib]

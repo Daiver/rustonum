@@ -1,4 +1,3 @@
-//use super::MatrixXf;
 
 #[macro_export]
 macro_rules! mat {
