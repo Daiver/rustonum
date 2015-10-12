@@ -73,7 +73,7 @@ from `examples/vector.rs`
 
 ```
 
-See `examples` and `tests` for more examples
+See `examples/*` and `tests/*` for more examples
 
 Pull requests are welcomed
 

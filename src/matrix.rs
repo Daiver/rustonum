@@ -2,6 +2,7 @@
 use std;
 use std::fmt;
 use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
+use super::Tensor;
 
 #[derive(Debug, Clone)]
 pub struct MatrixXf
@@ -95,10 +96,10 @@ impl MatrixXf {
         self.cols == self.rows
     }
 
-    pub fn size(&self) -> usize
-    {
-        self.values.len()
-    }
+//    pub fn size(&self) -> usize
+    //{
+        //self.values.len()
+    //}
 
     pub fn max(&self) -> f32
     {
@@ -168,6 +169,13 @@ impl MatrixXf {
             res[(i, 0)] = self[(i, i)];
         }
         res
+    }
+}
+
+impl Tensor for MatrixXf {
+    fn size(&self) -> usize 
+    {
+        self.values.len()
     }
 }
 
@@ -430,7 +438,9 @@ fn sub_matrix_from_const(mat: &MatrixXf, _rhs: f32) -> MatrixXf
 }
 
 impl fmt::Display for MatrixXf {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+    //FIXME: should be rewrited
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result 
+    {
         try!(write!(f, "["));
         for i in (0..self.rows()) {
             if i > 0 {

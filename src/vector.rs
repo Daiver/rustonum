@@ -1,9 +1,10 @@
 use num::traits::{Float, Num, NumCast};
 use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
-
+use super::Tensor;
+//use std::fmt;
 
 pub trait Vector<N>: Sized
-                   + Clone
+                   + Tensor
                    + Index<usize, Output = N> 
                    + IndexMut<usize, Output = N> 
                    
@@ -11,10 +12,11 @@ pub trait Vector<N>: Sized
            + Add<Output = N> 
            + Mul<Output = N> 
            + Copy
-           + NumCast
+           + NumCast,
+    <Self as Index<usize>>::Output: Num
 {
     //fn zero()
-    fn size(&self) -> usize;
+    //fn size(&self) -> usize;
 
     fn sum(&self) -> N
     {
@@ -41,6 +43,22 @@ pub trait Vector<N>: Sized
     }
 
 }
+
+//impl<N> fmt::Display for Vector<N>
+    //where N: fmt::Display {
+        ////FIXME: should be rewrited
+    //fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result 
+    //{
+        //try!(write!(f, "["));
+        //for i in (0 .. self.size()) {
+            //try!(write!(f, "{}", self[i]));
+            //if i < self.size() - 1 {
+                //try!(write!(f, ", "));
+            //}
+        //}
+        //write!(f, "]");
+    //}
+//}
 
 pub trait GeometryVector<N> : Vector<N>
                             + Index<usize, Output = N> 
@@ -101,10 +119,12 @@ impl<N> Vector3<N>
     }
 }
 
-impl<N> Vector<N> for Vector3<N> 
-    where N: Float + Copy + NumCast {
+impl<N: Copy + Float + NumCast> Tensor for Vector3<N> {
     fn size(&self) -> usize {3}
 }
+
+impl<N> Vector<N> for Vector3<N> 
+    where N: Float + Copy + NumCast {   }
 
 impl<N> GeometryVector<N> for Vector3<N> 
     where N: Float + Copy + NumCast {}
@@ -145,10 +165,12 @@ impl<N> Vector2<N>
 
 }
 
-impl<N> Vector<N> for Vector2<N> 
-    where N: Float + Copy + NumCast {
+impl<N: Copy + Float + NumCast> Tensor for Vector2<N> {
     fn size(&self) -> usize {2}
 }
+
+impl<N> Vector<N> for Vector2<N> 
+    where N: Float + Copy + NumCast {   }
 
 impl<N> GeometryVector<N> for Vector2<N> 
     where N: Float + Copy + NumCast {}
