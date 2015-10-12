@@ -4,7 +4,7 @@ use super::LAObject;
 //use std::fmt;
 
 pub trait Vector<N>: Sized
-                   + LAObject
+                   + LAObject<N>
                    + Index<usize, Output = N> 
                    + IndexMut<usize, Output = N> 
                    
@@ -119,7 +119,7 @@ impl<N> Vector3<N>
     }
 }
 
-impl<N: Copy + Float + NumCast> LAObject for Vector3<N> {
+impl<N: Copy + Float + NumCast> LAObject<N> for Vector3<N> {
     fn size(&self) -> usize {3}
 }
 
@@ -165,7 +165,7 @@ impl<N> Vector2<N>
 
 }
 
-impl<N: Copy + Float + NumCast> LAObject for Vector2<N> {
+impl<N: Copy + Float + NumCast> LAObject<N> for Vector2<N> {
     fn size(&self) -> usize {2}
 }
 

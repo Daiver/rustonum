@@ -1,5 +1,5 @@
-use std::ops::Index;
+use num::traits::Num;
 
-pub trait LAObject: Sized + Clone {
+pub trait LAObject<N: Num>: Sized + Clone {
     fn size(&self) -> usize;
 }

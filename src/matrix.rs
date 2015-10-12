@@ -172,7 +172,7 @@ impl MatrixXf {
     }
 }
 
-impl LAObject for MatrixXf {
+impl LAObject<f32> for MatrixXf {
     fn size(&self) -> usize 
     {
         self.values.len()
