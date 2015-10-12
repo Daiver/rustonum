@@ -14,12 +14,12 @@ pub trait Vector<N>: Sized
            + NumCast
 {
     //fn zero()
-    fn count(&self) -> usize;
+    fn size(&self) -> usize;
 
     fn sum(&self) -> N
     {
         let mut res = N::zero();
-        for i in (0 .. self.count()){
+        for i in (0 .. self.size()){
             res = res + self[i];
         }
         res
@@ -27,9 +27,9 @@ pub trait Vector<N>: Sized
 
     fn dot(&self, _rhs: & Self) -> N
     {
-        assert!(self.count() == _rhs.count());
+        assert!(self.size() == _rhs.size());
         let mut res = N::zero();
-        for i in (0..self.count()){
+        for i in (0..self.size()){
             res = res + self[i] * _rhs[i];
         }
         res
@@ -61,7 +61,7 @@ pub trait GeometryVector<N> : Vector<N>
     fn normalize(& mut self)
     {
         let len = self.length();
-        for i in (0..self.count()) {
+        for i in (0..self.size()) {
             self[i] = self[i] / len;
         }
     }
@@ -103,7 +103,7 @@ impl<N> Vector3<N>
 
 impl<N> Vector<N> for Vector3<N> 
     where N: Float + Copy + NumCast {
-    fn count(&self) -> usize {3}
+    fn size(&self) -> usize {3}
 }
 
 impl<N> GeometryVector<N> for Vector3<N> 
@@ -147,7 +147,7 @@ impl<N> Vector2<N>
 
 impl<N> Vector<N> for Vector2<N> 
     where N: Float + Copy + NumCast {
-    fn count(&self) -> usize {2}
+    fn size(&self) -> usize {2}
 }
 
 impl<N> GeometryVector<N> for Vector2<N> 
@@ -180,7 +180,7 @@ macro_rules! impl_static_vector_operators {
 
         fn $fun(self, _rhs: Self) -> Self {
             let mut res = self.clone();
-            for i in (0 .. self.count()) {
+            for i in (0 .. self.size()) {
                 res[i] = res[i].$fun(_rhs[i]);
             }
             res
@@ -193,7 +193,7 @@ macro_rules! impl_static_vector_operators {
 
         fn $fun(self, _rhs: N) -> Self {
             let mut res = self.clone();
-            for i in (0 .. self.count()) {
+            for i in (0 .. self.size()) {
                 res[i] = res[i].$fun(_rhs);
             }
             res
@@ -210,7 +210,7 @@ macro_rules! impl_static_vector_operators_for_scalars {
                 vec : $struct_name<$scalar_type_name>) -> $struct_name<$scalar_type_name>
         {
             let mut res = vec.clone();
-            for i in (0 .. vec.count()) {
+            for i in (0 .. vec.size()) {
                 res[i] = res[i].$fun(self);
             }
             res
