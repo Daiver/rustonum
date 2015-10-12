@@ -1,10 +1,10 @@
 use num::traits::{Float, Num, NumCast};
 use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
-use super::Tensor;
+use super::LAObject;
 //use std::fmt;
 
 pub trait Vector<N>: Sized
-                   + Tensor
+                   + LAObject
                    + Index<usize, Output = N> 
                    + IndexMut<usize, Output = N> 
                    
@@ -119,7 +119,7 @@ impl<N> Vector3<N>
     }
 }
 
-impl<N: Copy + Float + NumCast> Tensor for Vector3<N> {
+impl<N: Copy + Float + NumCast> LAObject for Vector3<N> {
     fn size(&self) -> usize {3}
 }
 
@@ -165,7 +165,7 @@ impl<N> Vector2<N>
 
 }
 
-impl<N: Copy + Float + NumCast> Tensor for Vector2<N> {
+impl<N: Copy + Float + NumCast> LAObject for Vector2<N> {
     fn size(&self) -> usize {2}
 }
 

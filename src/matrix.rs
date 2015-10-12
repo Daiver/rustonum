@@ -2,7 +2,7 @@
 use std;
 use std::fmt;
 use std::ops::{Index, IndexMut, Add, Sub, Mul, Div};
-use super::Tensor;
+use super::LAObject;
 
 #[derive(Debug, Clone)]
 pub struct MatrixXf
@@ -172,7 +172,7 @@ impl MatrixXf {
     }
 }
 
-impl Tensor for MatrixXf {
+impl LAObject for MatrixXf {
     fn size(&self) -> usize 
     {
         self.values.len()
