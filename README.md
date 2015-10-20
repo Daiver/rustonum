@@ -83,7 +83,7 @@ https://github.com/SiegeLord/RustAlgebloat
 
 https://github.com/hawkw/lin
 
-Dependences
+Dependencies
 ------------
 Some numerical traits 
 https://github.com/rust-lang-deprecated/num
