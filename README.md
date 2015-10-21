@@ -1,8 +1,12 @@
 # rustonum - primitive, dirty and inefficient linear algebra for rust 
 
-Just for fun project for educational purposes
+Just for fun project for educational purposes.
 
-Use it at your own risk
+Final goal is obtain something similar to Eigen (http://eigen.tuxfamily.org/). Maybe with bindings to LAPACK or another cool low level linear algebra library.
+
+Current version contains useless copying.
+
+Use it at your own risk.
 
 Install
 --------
